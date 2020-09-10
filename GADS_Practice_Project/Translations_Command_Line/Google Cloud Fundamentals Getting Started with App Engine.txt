@@ -1,0 +1,130 @@
+# Lab: Google Cloud Fundamentals: Getting Started with App Engine
+
+## Objectives: 
+
+In this lab, you learn how to perform the following tasks: 
+    
+   - Initialize App Engine 
+ 
+   - Preview an App Engine application running locally in Cloud Shell
+  
+   - Disable an App Engine application, when you no longer want it to be visible     
+
+
+
+## Steps: 
+
+1. In GCP console, on the top right toolbar, click the Open Cloud Shell button.
+
+2. Click Continue and wait a few moments to provision and connect 
+
+3. You can list the active account name with this command:
+
+	 gcloud auth list 
+
+	 	-Example Output: 
+				Credentialed accounts: 
+		 		    - google1623327-student@qwiklabs.net
+
+4. You can list the project ID with this command:
+
+	gcloud config list project 
+
+		-Example Output: 
+			[core]
+			projects = qwiklabs-gcp-4476a13dea667a6
+
+# Task 1: Initialize App 
+
+1. Initialize your App Engine app with your project and choose its region:
+
+	gcloud app create --project=$DEVSHELL_PROJECT_ID
+
+		-When prompted, select the region where you want your App Engine application located. 
+
+2. Clone the source code repository for a sample application in the hello_world directory:
+	
+	git clone https://github.com/GoogleCloudPlatform/python-docs-samples
+
+3. Navigate to the source directory:
+	
+	cd python-docs-samples/appengine/standard_python3/hello_world
+
+## Task 2: Run Hello World application locally
+
+1. Execute the following command to download and update the packages list:
+	
+	sudo apt-get update
+
+2. Set up a virtual environment in which you will run your application. Python virtual environments are used to isolate package installations from the system: 
+
+	sudo apt-get install virtualenv
+
+		-If prompted[Y/n],press Y and Enter
+ 
+	virtualenv -p python3 venv
+
+3. Activate the virtual environment:
+	
+	source venv/bin/activate 
+
+4. Navigate to your project directory and install dependencies:
+
+	pip install  -r requirements.txt
+
+5. Run the application: 
+
+	python main.py 
+
+		Please ignore the warning if any. 
+
+6. In Cloud Shell, click Web preview (Web Preview) > Preview on port 8080 to preview the application. 
+	-To access the web preview icon, you may need to collapse the Navigation menu. 
+
+		Example Output: 
+			
+			Hello World!
+
+7. To end the test, return to Cloud Shell and press Ctrl+C to abort the deployed service
+
+8. Using the Cloud Console, verify that the app is not deployed using this command: 
+	
+	gcloud app open-console
+
+Task 3: Deploy and run Hello World on App Engine
+
+1. Navigate to the source directory:
+
+	cd ~/python-docs-samples/appengine/standard_python3/hello_world
+
+2. Deploy your Hello World application using this command: 
+
+	gcloud app deploy
+
+			-If prompted "Do you want to conitue(Y/n), press Y and then Enter. 
+
+3. Launch your browser to view the app at http://YOUR_PROJECT_ID.appspot.com
+
+	gcloud app browse 
+
+			Copy and paste the URL into a new browser window
+	Results:
+
+			URL : qwiklabs-gcp-04-5ebbcca718e5.appspot.com
+			Hello World!
+
+Congratulations! You created your first application using App Engine. 
+
+Task 4: Disable the application, use this command:
+
+1. List all versions of all services deployed to the App Engine server:
+	
+	gcloud app versions list
+
+2. You can now disable the version of any services deployed to the App Engine server: 
+
+	gcloud app versions stop --service=servicename v1 v2
+
+This will stop both versions 1 and 2 
+
+End your lab.
